@@ -8,6 +8,7 @@ export const getRooms = (req: Request, res: Response) => {
 	type ParsedRoom = {
 		id: string;
 		name: string;
+		clientName: string;
 		userLength: number;
 		adminName: string;
 		state: RoomState;
@@ -19,6 +20,7 @@ export const getRooms = (req: Request, res: Response) => {
 		const parsedRoom = {
 			id: room.id,
 			name: room.name,
+			clientName: room.clientName,
 			userLength: room.users.length,
 			adminName: room.admin.name,
 			state: room.state,
