@@ -68,13 +68,18 @@ export function initIo() {
 			}
 		});
 
-		// socket.on("custom", req => {
-		//   const { emitEndpoint, data } = req
-		//   const room = user.room;
-		//   if (room) {
-		//     room.data = Object.assign(room.data, data)
-		//     io.emit(`${room.id}/${emitEndpoint}`, data)
-		//   }
-		// })
+		socket.on("custom", (req) => {
+			const room = user.room;
+			if (room) {
+				io.emit(`${room.id}/custom`, req);
+			}
+		});
+
+		socket.on("custom-data-update", (data) => {
+			const room = user.room;
+			if (room) {
+				room.data = data;
+			}
+		});
 	});
 }
