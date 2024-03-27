@@ -30,13 +30,13 @@ export const getRooms = (req: Request, res: Response) => {
 };
 
 export const createRoom = (req: Request, res: Response) => {
-	const { roomId, roomName, userId } = req.body;
+	const { roomId, roomName, userId, clientName } = req.body;
 	const admin = User.findBy("id", userId);
 	const room = Room.findBy("id", roomId);
 	if (room) return res.json(response("Room id already used"));
 	if (admin?.room) return res.json(response("User is already in a room"));
 	if (admin) {
-		const room = new Room(roomId, roomName, admin);
+		const room = new Room(roomId, roomName, clientName, admin);
 		config.rooms.push(room);
 
 		res.json(response("Successfully created room", true, room.json));

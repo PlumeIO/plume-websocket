@@ -10,6 +10,7 @@ export enum RoomState {
 export type RoomJson = {
 	id: string;
 	name: string;
+	clientName: string;
 	users: UserJson[];
 	admin: UserJson;
 	state: RoomState;
@@ -19,6 +20,7 @@ export type RoomJson = {
 export default class Room {
 	id: string;
 	name: string;
+	clientName: string;
 	users: User[];
 	admin: User;
 	timeout: Timeout;
@@ -29,12 +31,14 @@ export default class Room {
 	constructor(
 		id: string,
 		name: string,
+		clientName: string,
 		admin: User,
 		data: any = undefined,
 		interval: number = 15
 	) {
 		this.id = id;
 		this.name = name;
+		this.clientName = clientName;
 		this.admin = admin;
 		this.users = [admin];
 		this.timeout = new Timeout(this.endRoom, interval);
@@ -54,6 +58,7 @@ export default class Room {
 		});
 		return {
 			id: this.id,
+			clientName: this.clientName,
 			name: this.name,
 			users,
 			admin: this.admin.json,
